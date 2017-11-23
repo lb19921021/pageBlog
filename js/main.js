@@ -3,7 +3,7 @@ var configURL = 'https://raw.githubusercontent.com/' + user + '/blogio/master/co
 var blogListURL = 'https://api.github.com/repos/' + user + '/blogio/contents/blogs';
 var issuesList = 'https://api.github.com/repos/' + user + '/blogio/issues';
 var issuesHTML = 'https://github.com/' + user + '/blogio/issues'
-var token = "?access_token=02a86518f1c788ea355fc0a0a18054b7ed543e39";
+var token = "?access_token"+"=909fab5a3f8e19"+"faf89f636a630d2d7eba70ce9b";
 $(document).ready(function() {
 	load();
 	// 生成类型菜单
