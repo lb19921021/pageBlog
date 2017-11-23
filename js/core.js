@@ -3,6 +3,7 @@ var blogListURL = parenthtml.blogListURL;
 var issuesList = parenthtml.issuesList;
 var issuesHTML = parenthtml.issuesHTML;
 var readmeURL = parenthtml.readmeURL;
+var token=parenthtml.token;
 var code;
 function setBlogTxt(obj) {
 	// 隐藏Button
@@ -17,7 +18,7 @@ function setBlogTxt(obj) {
 	code = obj.attr("code");
 	$("#article").html("loading . . .");
 	// set blog content
-	$.get(blogURL, function(result) {
+	$.get(blogURL+token, function(result) {
 		$("#title").show();
 		if (type == "markdown") {
 			$("#article").html("");
@@ -53,7 +54,7 @@ function setCommentURL(issuesList, code) {
 	console.log("获取并设置评论区");
 	$.ajax({
 		type : "GET",
-		url : issuesList,
+		url : issuesList+token,
 		dataType : 'json',
 		async : false,
 		success : function(json) {
@@ -78,7 +79,7 @@ function setComment(commentURL) {
 	$('#commentsList').children().remove();
 	$
 			.getJSON(
-					commentURL,
+					commentURL+token,
 					function(json) {
 						for ( var i = 0; i < json.length; i++) {
 							var avatar_url = json[i].user.avatar_url; // avatar_url
