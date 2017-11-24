@@ -3,7 +3,8 @@ var blogListURL = parenthtml.blogListURL;
 var issuesList = parenthtml.issuesList;
 var issuesHTML = parenthtml.issuesHTML;
 var readmeURL = parenthtml.readmeURL;
-var token=parenthtml.token;
+//var token=parenthtml.token;
+var token="";
 var code;
 function setBlogTxt(obj) {
 	// 隐藏Button
