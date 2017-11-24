@@ -1,98 +1,76 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>编辑博客</title>
-        <link rel="stylesheet" href="trumbowyg/design/css/trumbowyg.css">
+<head>
+<meta charset="UTF-8">
+<title>编辑博客</title>
+<link rel="stylesheet" href="trumbowyg/design/css/trumbowyg.css">
+<style type="text/css">
+html,body {
+	margin: 0;
+	padding: 0;
+	background-color: #F2F2F2;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
 
-        <style type="text/css">
+header {
+	text-align: center;
+}
 
-            html, body {
+#main {
+	width: 96%;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body>
+	<div id="main" role="main">
+		<form action="#">
+			<div id="gcx_editor"></div>
+		</form>
+	</div>
 
-                margin: 0;
-
-                padding: 0;
-
-                background-color: #F2F2F2;
-
-                font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-
-            }
-
-            header {
-
-                text-align: center;
-
-            }
-
-            #main {
-
-                max-width: 960px;
-
-                margin: 0 auto;
-
-            }
-
-        </style>
-
-    </head>
-
-    <body>
-
-        <div id="main" role="main">
-
-            <form action="#">
-
-                <div id="gcx_editor">
-
-                </div>
-            </form>
-
-        </div>
-
-        <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-
-        <script src="trumbowyg/trumbowyg.min.js"></script>
-		 <script src="trumbowyg/langs/zh_cn.min.js"></script>
-		
-        <script>
- $.trumbowyg.btnsGrps.test = [  
-   'blod',  
-   'link',  
-   '|', 'justifyLeft',  
-   'justifyCenter',  
-   'justifyRight',  
-   'justifyFull','|',  
-   'foreColor',  
-   'backColor'  
-];  
-$( '#gcx_editor' ).trumbowyg( {  
-   //设置中文  
-   lang: 'zh_cn',  
-   //最大化：  
-   fixedBtnPane: true,  
-   //autogrow: true,   //当编写长文本时，文本编辑区可以自行扩展,不会出现下拉条，默认值是false  
-   //点击选择下拉  
-   btnsDef: {  
-      //图片  
-      image: {  
-         dropdown: [ 'insertImage', 'base64','upload' ],  // 'upload' 还有上传图片  
-         ico: 'insertImage'  
-      }  
-   },  
-   btns: [  
-      'viewHTML',              //转换成html格式  
-      '|', 'formatting',         //格式化，排布大小方案  
-      '|', 'btnGrp-semantic',    //字体的倾斜，加粗，中间划线  
-      '|', 'btnGrp-test',        //试验，有此项，则会出现左对齐，居中，右对齐，两端对齐  
-      'btnGrp-lists',       //list，前面加序号或者圆点符号  
-      '|', 'image',              //图片  
-      '|', 'horizontalRule'     //增加分隔符  
-   ]  
-} );    
-        </script>
-
-    </body>
-
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="trumbowyg/trumbowyg.min.js"></script>
+	<script src="trumbowyg/langs/zh_cn.min.js"></script>
+	<script src="FileSaver.js"></script>
+	<script>
+		$('#gcx_editor').trumbowyg({
+			//设置中文  
+			lang : 'zh_cn',
+			//最大化：  
+			fixedBtnPane : true,
+			//autogrow: true,   //当编写长文本时，文本编辑区可以自行扩展,不会出现下拉条，默认值是false  
+			//点击选择下拉  
+			btnsDef : {
+				//图片  
+				image : {
+					dropdown : [ 'insertImage', 'base64', 'upload' ], // 'upload' 还有上传图片  
+					ico : 'insertImage'
+				}
+			},
+			btns : [ 'viewHTML', //转换成html格式  
+			'|', 'formatting', //格式化，排布大小方案  
+			'|', 'btnGrp-semantic', //字体的倾斜，加粗，中间划线  
+			'|', 'btnGrp-test', //试验，有此项，则会出现左对齐，居中，右对齐，两端对齐  
+			'btnGrp-lists', //list，前面加序号或者圆点符号  
+			'|', 'image', //图片  
+			'|', 'horizontalRule' //增加分隔符  
+			]
+		});
+		function exportexcel(str, name) {
+			var blob = new Blob([ str ], {
+				type : "text/plain;charset=utf-8"
+			});
+			saveAs(blob, name);
+		}
+		var ul = $("ul.trumbowyg-button-pane");
+		var li = '<li id="save" class="trumbowyg-not-disable trumbowyg-buttons-right"><button type="button" class="trumbowyg-link-button" title="保存">保存</button></li>';
+		ul.append(li);
+		$("#save").click(function() {
+			var data = $('#gcx_editor').trumbowyg('html');
+			exportexcel(data, "data.html");
+		});
+	</script>
+</body>
 </html>
 
