@@ -7,7 +7,7 @@ var token = "?access_token"+"=909fab5a3f8e19"+"faf89f636a630d2d7eba70ce9b";
 $(document).ready(function() {
 	load();
 	// 生成类型菜单
-	$.getJSON(configURL + token, function(json) {
+	$.getJSON(configURL+token, function(json) {
 		var $ul = $("#leixing");
 		var lis = "";
 		for (var i = 0; i < json.length; i++) {
