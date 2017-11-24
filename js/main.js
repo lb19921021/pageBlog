@@ -1,6 +1,6 @@
 var user = 'lb19921021';
 var configURL = 'https://lb19921021.github.io/data/config.json'
-var PATHURL="https://lb19921021.github.io/data/blogs/";
+var PATHURL="https://lb19921021.github.io/data/blogs/"; 
 var blogListURL = 'https://api.github.com/repos/' + user + '/lb19921021.github.io/contents/data/blogs';
 var issuesList = 'https://api.github.com/repos/' + user + '/lb19921021.github.io/issues';
 var issuesHTML = 'https://github.com/' + user + '/lb19921021.github.io/issues'
