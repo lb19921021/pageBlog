@@ -1,6 +1,6 @@
 var user = 'lb19921021';
 var configURL = 'https://lb19921021.github.io/data/config.json'
-var PATHURL="https://lb19921021.github.io/data/blogs/"; 
+var PATHURL = "https://lb19921021.github.io/data/blogs/";
 var blogListURL = 'https://api.github.com/repos/' + user + '/lb19921021.github.io/contents/data/blogs';
 var issuesList = 'https://api.github.com/repos/' + user + '/lb19921021.github.io/issues';
 var issuesHTML = 'https://github.com/' + user + '/lb19921021.github.io/issues'
@@ -10,7 +10,7 @@ $(document).ready(function() {
 	$.getJSON(configURL, function(json) {
 		var $ul = $("#leixing");
 		var lis = "";
-		for (var i = 0; i < json.length; i++) {
+		for(var i = 0; i < json.length; i++) {
 			var j = json[i]
 			var name = j.title;
 			var li = $('<li >' + name + '</li>');
@@ -42,39 +42,39 @@ function getul(obj) {
 	obj = $(obj);
 	var path = obj.attr("path");
 	var data = ulsdata[path];
-	if (data == undefined) {
+	if(data == undefined) {
 		$.getJSON(
-		blogListURL + "/" + path , function(json) {
-			showul(json);
-			ulsdata[path] = json;
-		});
+			blogListURL + "/" + path,
+			function(json) {
+				showul(json);
+				ulsdata[path] = json;
+			});
 	} else {
 		showul(data);
 	}
-
 
 }
 
 function showul(json) {
 	var uls = new Array();
-	for (var i = 0; i < json.length; i++) {
+	for(var i = 0; i < json.length; i++) {
 		var name = json[i].name; // Blog title
-		var blogURL = json[i].download_url; 
+		var blogURL = json[i].download_url;
 		// add blog list elements
 		var new_a = $("<li></li>")
 		var type = "markdown";
 		// delete '.md'
-		if (name.substr(-3, 3) == ".md") {
+		if(name.substr(-3, 3) == ".md") {
 			name = name.substr(0, name.length - 3);
-		} else if (name.substr(-5, 5) == ".html") {
+		} else if(name.substr(-5, 5) == ".html") {
 			name = name.substr(0, name.length - 5);
 			type = "html";
 		}
 		new_a.text(name);
 		// update content
-		
-		var code=blogURL.split("/blogs/")[1];
-		new_a.attr("data_blogURL", PATHURL+code);
+
+		var code = blogURL.split("/blogs/")[1];
+		new_a.attr("data_blogURL", PATHURL + code);
 		new_a.attr("data_name", name);
 		new_a.attr("href", "#");
 		new_a.attr("data_type", type);
@@ -85,16 +85,29 @@ function showul(json) {
 
 	var mainw = $("#wenzhang0");
 	mainw.html("");
-	for (var i = 0; i < uls.length && i <= 8; i++) {
+	$(".timu").remove();
+	for(var i = 0; i < uls.length && i <= 8; i++) {
 		mainw.append(uls[i]);
 	}
-
-	if (uls.length > 8) {
+	if(uls.length > 8) {
+		uls = uls.slice(8);
 		var $div = $('<div class="inner columns aligned timu"><div class="span-1-25"><ul class="alt"></ul></div></div>');
+		var temp = null;
+		for(var i = 0; i < uls.length; i++) {
+			if(i % 7 == 0) {
+				if(temp != null) {
+					mainw.after(temp);
+				}
+				temp = $div.clone();
+			}
+			temp.find("ul").append(uls[i]);
+		}
 
+		if(temp != null) {
+			$("#timu").after(temp);
+		}
 	}
 	closeload();
-
 }
 
 function openiframe(url, name) {
@@ -115,3 +128,24 @@ function setBlogTxt(obj) {
 	iframeobjdata = obj;
 	openiframe("data.html", $(obj).attr("data_name"));
 }
+//缓存评论信息
+var issusedatas = {};
+$.ajax({
+	type: "GET",
+	url: issuesList,
+	dataType: 'json',
+	async: false,
+	success: function(json) {
+		for(var i = 0; i < json.length; i++) {
+			var title = json[i].title; // Blog title
+			var temp = issusedatas[title];
+			if(temp == undefined) {
+				var arr = [];
+				arr.push(json[i]);
+				issusedatas[title] = arr;
+			} else {
+				temp.push(json[i]);
+			}
+		}
+	}
+});
