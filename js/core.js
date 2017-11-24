@@ -1,8 +1,6 @@
 var parenthtml = window.parent;
-var blogListURL = parenthtml.blogListURL;
 var issuesList = parenthtml.issuesList;
 var issuesHTML = parenthtml.issuesHTML;
-var readmeURL = parenthtml.readmeURL;
 //var token=parenthtml.token;
 var token="";
 var code;
