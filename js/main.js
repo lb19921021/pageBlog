@@ -1,4 +1,5 @@
 var user = 'lb19921021';
+var token = "8c679b37e2d1dfc6" + "db0e6368e3f9a69b93c7f3f6";
 var configURL = 'https://lb19921021.github.io/data/config.json'
 var PATHURL = "https://lb19921021.github.io/data/blogs/";
 var blogListURL = 'https://api.github.com/repos/' + user + '/lb19921021.github.io/contents/data/blogs';
@@ -133,8 +134,11 @@ var issusedatas = {};
 $.ajax({
 	type: "GET",
 	url: issuesList,
+	data: {
+		access_token: token
+	},
 	dataType: 'json',
-	async: false,
+	async: true,
 	success: function(json) {
 		for(var i = 0; i < json.length; i++) {
 			var title = json[i].title; // Blog title
